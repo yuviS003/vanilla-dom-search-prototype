@@ -39,6 +39,9 @@ function search() {
       }
     });
     console.log(matchesURI);
+    $(document).ready(function () {
+      $("#my-modal").modal("show");
+    });
   }
 }
 
