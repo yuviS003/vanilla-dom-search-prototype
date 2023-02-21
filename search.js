@@ -12,19 +12,33 @@ function search() {
   for (let i = 0; i < highlights.length; i++) {
     highlights[i].classList.remove("highlight");
   }
-  // If search term is blank, do nothing
+
+  // If search term is blank, do nothing and reset previous highlights
   if (!searchTerm) {
     clearSearch();
     return;
   }
+
   // Search for and highlight matching content
   const regex = new RegExp(searchTerm, "gi");
   const matches = content.innerHTML.match(regex);
+
   if (matches) {
-    content.innerHTML = content.innerHTML.replace(
-      regex,
-      '<span class="highlight">$&</span>'
-    );
+    content.childNodes.forEach((node) => {
+      if (!node.length) {
+        // console.log(node.baseURI);
+        // console.log(node.getAttribute("id"));
+       
+        node.innerHTML = node.innerHTML.replace(
+          regex,
+          '<span class="highlight">$&</span>'
+        );
+      }
+    });
+    // content.innerHTML = content.innerHTML.replace(
+    //   regex,
+    //   '<span class="highlight">$&</span>'
+    // );
   }
 }
 
@@ -46,3 +60,6 @@ searchInput.addEventListener("keydown", function (event) {
     search();
   }
 });
+// searchInput.addEventListener("input", function (event) {
+//   search();
+// });
