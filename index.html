@@ -25,14 +25,7 @@
       </ul>
       <div class="search-box">
         <input type="search" id="search-input" placeholder="Search" />
-        <button
-          id="search-btn"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Go Search
-        </button>
+        <button id="search-btn">Go Search</button>
         <button id="clear-btn">Clear Selected</button>
       </div>
     </nav>
@@ -237,6 +230,15 @@
         </p>
       </div>
     </div>
+    <button
+      type="button"
+      class="d-none"
+      id="modalTrigger"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Launch demo modal
+    </button>
 
     <!-- Modal -->
     <div
@@ -257,38 +259,34 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
-            <h2 class="fs-5">Popover in a modal</h2>
-            <p>
-              This
-              <button
-                class="btn btn-secondary"
-                data-bs-toggle="popover"
-                title="Popover title"
-                data-bs-content="Popover body content is set in this attribute."
-              >
-                button
-              </button>
-              triggers a popover on click.
-            </p>
-            <hr />
-            <h2 class="fs-5">Tooltips in a modal</h2>
-            <p>
-              <a href="#" data-bs-toggle="tooltip" title="Tooltip">This link</a>
-              and
-              <a href="#" data-bs-toggle="tooltip" title="Tooltip">that link</a>
-              have tooltips on hover.
-            </p>
+          <div class="modal-body" id="modalBody">
+            <div class="d-flex align-items-center flex-column w-100">
+              <div class="spinner-grow text-secondary" role="status"></div>
+              <strong>Searching...</strong>
+            </div>
+            <!-- <div class="card w-100 my-2">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
+                <a href="#" class="btn btn-primary">Button</a>
+              </div>
+            </div> -->
+            <!-- <div class="alert alert-danger" role="alert">
+              A simple danger alert—check it out!
+            </div> -->
           </div>
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              id="modalCloseBtn"
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>

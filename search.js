@@ -3,6 +3,9 @@ const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 const clearBtn = document.getElementById("clear-btn");
 const content = document.getElementById("content");
+const modalTrigger = document.getElementById("modalTrigger");
+const modalBody = document.getElementById("modalBody");
+const modalCloseBtn = document.getElementById("modalCloseBtn");
 
 // Define search function
 function search() {
@@ -29,8 +32,10 @@ function search() {
       if (!node.length) {
         if (regex.test(node.innerHTML)) {
           node.getAttribute("id")
-            ? matchesURI.push(`${node.baseURI}#${node.getAttribute("id")}`)
-            : matchesURI.push(node.baseURI);
+            ? matchesURI.push(
+                `http://127.0.0.1:5500/#${node.getAttribute("id")}`
+              )
+            : matchesURI.push("http://127.0.0.1:5500/");
         }
         node.innerHTML = node.innerHTML.replace(
           regex,
@@ -39,10 +44,31 @@ function search() {
       }
     });
     console.log(matchesURI);
-    $(document).ready(function () {
-      $("#my-modal").modal("show");
-    });
+    if (matchesURI.length) {
+      console.log("Triggering modal");
+      var newHtml = ``;
+      matchesURI.forEach((uri) => {
+        newHtml += `<div class="card w-100 my-2">
+              <div class="card-body">
+                <h5 class="card-title">Match Found</h5>
+                <p class="card-text">
+                  Click on this button to see where the match is.
+                </p>
+                <a href=${uri} class="btn btn-primary" onclick="closeModal()">Follow</a>
+              </div>
+            </div>`;
+      });
+      // console.log(modalBody.innerHTML);
+      modalBody.innerHTML = newHtml;
+      modalTrigger.click();
+    }
   }
+}
+
+function closeModal() {
+  console.log("Close modal");
+  modalCloseBtn.click();
+  clearSearch();
 }
 
 // Define clear search function
@@ -63,6 +89,3 @@ searchInput.addEventListener("keydown", function (event) {
     search();
   }
 });
-// searchInput.addEventListener("input", function (event) {
-//   search();
-// });
