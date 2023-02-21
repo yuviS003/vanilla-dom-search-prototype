@@ -28,7 +28,11 @@ function search() {
       if (!node.length) {
         // console.log(node.baseURI);
         // console.log(node.getAttribute("id"));
-       
+        if (regex.test(node.innerHTML)) {
+          node.getAttribute("id")
+            ? console.log(`${node.baseURI}#${node.getAttribute("id")}`)
+            : console.log(node.baseURI);
+        }
         node.innerHTML = node.innerHTML.replace(
           regex,
           '<span class="highlight">$&</span>'
