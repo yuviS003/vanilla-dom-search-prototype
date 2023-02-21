@@ -6,6 +6,7 @@ const content = document.getElementById("content");
 
 // Define search function
 function search() {
+  let matchesURI = [];
   // Get search term and reset previous highlights
   const searchTerm = searchInput.value;
   const highlights = content.querySelectorAll(".highlight");
@@ -26,12 +27,10 @@ function search() {
   if (matches) {
     content.childNodes.forEach((node) => {
       if (!node.length) {
-        // console.log(node.baseURI);
-        // console.log(node.getAttribute("id"));
         if (regex.test(node.innerHTML)) {
           node.getAttribute("id")
-            ? console.log(`${node.baseURI}#${node.getAttribute("id")}`)
-            : console.log(node.baseURI);
+            ? matchesURI.push(`${node.baseURI}#${node.getAttribute("id")}`)
+            : matchesURI.push(node.baseURI);
         }
         node.innerHTML = node.innerHTML.replace(
           regex,
@@ -39,10 +38,7 @@ function search() {
         );
       }
     });
-    // content.innerHTML = content.innerHTML.replace(
-    //   regex,
-    //   '<span class="highlight">$&</span>'
-    // );
+    console.log(matchesURI);
   }
 }
 
