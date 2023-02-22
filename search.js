@@ -9,6 +9,7 @@ const modalTrigger = document.getElementById("modalTrigger");
 const modalBody = document.getElementById("modalBody");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
 const modalCloseCrossBtn = document.getElementById("modalCloseCrossBtn");
+const fetchAnotherDomBtn = document.getElementById("fetchAnotherDomBtn");
 
 // Define search function
 function search() {
@@ -100,6 +101,19 @@ function clearSearch() {
   }
 }
 
+function fetchAnotherDOM() {
+  fetch("./anotherDom.html")
+    .then((response) => response.text())
+    .then((text) => {
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(text, "text/html");
+      // Now you can access the DOM of the other HTML file using standard DOM manipulation methods
+      const element = htmlDoc.querySelector("#content");
+      console.log(element);
+    })
+    .catch((err) => console.error(err));
+}
+
 // Add event listeners
 searchBtn.addEventListener("click", search);
 clearBtn.addEventListener("click", clearSearch);
@@ -112,4 +126,8 @@ searchInput.addEventListener("input", function (event) {
   if (event.target.value === "") {
     clearSearch();
   }
+});
+
+fetchAnotherDomBtn.addEventListener("click", function (event) {
+  fetchAnotherDOM();
 });
