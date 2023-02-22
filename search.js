@@ -58,7 +58,6 @@ function search() {
     });
   }
   if (matchedComponents.length) {
-    console.log("Triggering modal");
     let newHtml = ``;
     matchedComponents.forEach((match) => {
       newHtml += `<div class="card w-100 my-2">
@@ -101,15 +100,29 @@ function clearSearch() {
   }
 }
 
+const folderPath = "./otherFiles";
+const parser = new DOMParser();
+
 function fetchAnotherDOM() {
-  fetch("./anotherDom.html")
+  fetch(folderPath)
     .then((response) => response.text())
-    .then((text) => {
-      const parser = new DOMParser();
-      const htmlDoc = parser.parseFromString(text, "text/html");
-      // Now you can access the DOM of the other HTML file using standard DOM manipulation methods
-      const element = htmlDoc.querySelector("#content");
-      console.log(element);
+    .then((data) => {
+      const htmlFiles = data.match(/href="([^"]*\.html)"/g);
+      if (htmlFiles) {
+        htmlFiles.forEach((file) => {
+          const fileName = file.match(/href="([^"]*\.html)"/)[1];
+          fetch(fileName)
+            .then((response) => response.text())
+            .then((data) => {
+              const dom = parser.parseFromString(data, "text/html");
+              // do something with the DOM of the file
+              console.log(dom);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        });
+      }
     })
     .catch((err) => console.error(err));
 }
