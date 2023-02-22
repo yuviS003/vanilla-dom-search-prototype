@@ -17,7 +17,8 @@ function search() {
   const searchTerm = searchInput.value;
   const highlights = content.querySelectorAll(".highlight");
   for (let i = 0; i < highlights.length; i++) {
-    highlights[i].classList.remove("highlight");
+    const textNode = document.createTextNode(highlights[i].textContent);
+    highlights[i].parentNode.replaceChild(textNode, highlights[i]);
   }
 
   // If search term is blank, do nothing and reset previous highlights
@@ -25,11 +26,7 @@ function search() {
     clearSearch();
     return;
   }
-  let a = {
-    matchHeading: "hey",
-    matchBrief: "brief hey",
-    matchUri: "",
-  };
+
   // Search for and highlight matching content
   const regex = new RegExp(searchTerm, "gi");
   const matches = content.innerHTML.match(regex);
@@ -89,15 +86,7 @@ function search() {
 function closeModal() {
   console.log("Close modal");
   modalCloseBtn.click();
-  // clearSearch();
 }
-
-// modalCloseBtn.addEventListener("click", function (e) {
-//   clearSearch();
-// });
-// modalCloseCrossBtn.addEventListener("click", function (e) {
-//   clearSearch();
-// });
 
 // Define clear search function
 function clearSearch() {
@@ -105,7 +94,9 @@ function clearSearch() {
   searchInput.value = "";
   const highlights = content.querySelectorAll(".highlight");
   for (let i = 0; i < highlights.length; i++) {
-    highlights[i].classList.remove("highlight");
+    // highlights[i].classList.remove("highlight");
+    const textNode = document.createTextNode(highlights[i].textContent);
+    highlights[i].parentNode.replaceChild(textNode, highlights[i]);
   }
 }
 
