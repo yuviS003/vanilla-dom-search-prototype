@@ -9,7 +9,6 @@ const modalTrigger = document.getElementById("modalTrigger");
 const modalBody = document.getElementById("modalBody");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
 const modalCloseCrossBtn = document.getElementById("modalCloseCrossBtn");
-const fetchAnotherDomBtn = document.getElementById("fetchAnotherDomBtn");
 
 // Define search function
 function search() {
@@ -36,8 +35,8 @@ function search() {
     content.childNodes.forEach((node) => {
       if (!node.length) {
         if (regex.test(node.innerHTML)) {
-          console.log(node.childNodes[1].textContent);
-          console.log(node.childNodes[3].textContent.trim().slice(0, 50));
+          // console.log(node.childNodes[1].textContent);
+          // console.log(node.childNodes[3].textContent.trim().slice(0, 50));
           node.getAttribute("id")
             ? matchedComponents.push({
                 matchHeading: node.childNodes[1].textContent,
@@ -100,33 +99,6 @@ function clearSearch() {
   }
 }
 
-const folderPath = "./otherFiles";
-const parser = new DOMParser();
-
-function fetchAnotherDOM() {
-  fetch(folderPath)
-    .then((response) => response.text())
-    .then((data) => {
-      const htmlFiles = data.match(/href="([^"]*\.html)"/g);
-      if (htmlFiles) {
-        htmlFiles.forEach((file) => {
-          const fileName = file.match(/href="([^"]*\.html)"/)[1];
-          fetch(fileName)
-            .then((response) => response.text())
-            .then((data) => {
-              const dom = parser.parseFromString(data, "text/html");
-              // do something with the DOM of the file
-              console.log(dom);
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-        });
-      }
-    })
-    .catch((err) => console.error(err));
-}
-
 // Add event listeners
 searchBtn.addEventListener("click", search);
 clearBtn.addEventListener("click", clearSearch);
@@ -139,8 +111,4 @@ searchInput.addEventListener("input", function (event) {
   if (event.target.value === "") {
     clearSearch();
   }
-});
-
-fetchAnotherDomBtn.addEventListener("click", function (event) {
-  fetchAnotherDOM();
 });
