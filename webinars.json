@@ -1,0 +1,35 @@
+[
+  {
+    "id": "b7846736-884e-49e7-9cdc-9e38c3167155",
+    "webinarName": "Financial and Banking",
+    "url": "https://youtu.be/q0Xs81k02kQ",
+    "status": 1,
+    "createdAt": "2022-10-07T10:06:05.000Z",
+    "updatedAt": "2022-11-11T13:47:56.000Z",
+    "embedurl": "https://www.youtube.com/embed/q0Xs81k02kQ?enablejsapi=1",
+    "sequence": 0,
+    "tags": ["banking"]
+  },
+  {
+    "id": "17295394-5eb5-474c-8965-f32e00aba21a",
+    "webinarName": "tax webinar",
+    "url": "https://youtu.be/YXo5fXaDUWI",
+    "status": 1,
+    "createdAt": "2022-10-31T05:55:22.000Z",
+    "updatedAt": "2022-11-11T13:47:56.000Z",
+    "embedurl": "https://www.youtube.com/embed/YXo5fXaDUWI?enablejsapi=1",
+    "sequence": 1,
+    "tags": ["taxes"]
+  },
+  {
+    "id": "321683a5-f7bf-467d-9aa1-4ac24adf1993",
+    "webinarName": "ROE",
+    "url": "https://youtu.be/6fA5N4giHrM",
+    "status": 1,
+    "createdAt": "2022-10-20T00:50:55.000Z",
+    "updatedAt": "2022-11-11T08:20:40.000Z",
+    "embedurl": "https://www.youtube.com/embed/6fA5N4giHrM?enablejsapi=1",
+    "sequence": 2,
+    "tags": ["invest","economics"]
+  }
+]

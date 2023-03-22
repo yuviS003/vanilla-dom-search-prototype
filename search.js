@@ -87,6 +87,160 @@ function closeModal() {
   modalCloseBtn.click();
 }
 
+let activeWebinars = null;
+let activeArticles = null;
+let activeServices = null;
+
+function fetchWebinars() {
+  // fetch(`https://www.covalenttechnology.co.in/api/webinars/active`, {
+  //   method: "GET",
+  //   "content-type": "application/json",
+  // })
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     console.log(res);
+  //     activeWebinars = res;
+  //   })
+  //   .catch((err) => console.error(err));
+
+  fetch(`./webinars.json`, {
+    method: "GET",
+    "content-type": "application/json",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      activeWebinars = res;
+    })
+    .catch((err) => console.error(err));
+}
+
+function fetchArticles() {
+  // fetch(`https://www.covalenttechnology.co.in/api/latestnews/active/`, {
+  //   method: "GET",
+  //   "content-type": "application/json",
+  // })
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     console.log(res);
+  //     activeArticles = res;
+  //   })
+  //   .catch((err) => console.error(err));
+
+  fetch(`./articles.json`, {
+    method: "GET",
+    "content-type": "application/json",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      activeArticles = res;
+    })
+    .catch((err) => console.error(err));
+}
+
+function fetchServices() {
+  // fetch(`https://www.covalenttechnology.co.in/api/latestnews/active/`, {
+  //   method: "GET",
+  //   "content-type": "application/json",
+  // })
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     console.log(res);
+  //     activeArticles = res;
+  //   })
+  //   .catch((err) => console.error(err));
+
+  fetch(`./services.json`, {
+    method: "GET",
+    "content-type": "application/json",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      activeServices = res;
+    })
+    .catch((err) => console.error(err));
+}
+
+function searchWithinArticles(query) {
+  let searchResults = [];
+  if (activeArticles) {
+    activeArticles.forEach((article, index) => {
+      if (article?.tags) {
+        if (article.tags.some((elem) => query.includes(elem))) {
+          searchResults.push(article);
+        }
+      }
+    });
+  }
+  if (searchResults.length) return searchResults;
+}
+
+function searchWithinWebinars(query) {
+  let searchResults = [];
+  if (activeWebinars) {
+    activeWebinars.forEach((webinar, index) => {
+      if (webinar?.tags) {
+        if (webinar.tags.some((elem) => query.includes(elem))) {
+          searchResults.push(webinar);
+        }
+      }
+    });
+  }
+  if (searchResults.length) return searchResults;
+}
+
+function searchWithinServices(query) {
+  let searchResults = [];
+  if (activeServices) {
+    activeServices.forEach((service, index) => {
+      if (service?.tags) {
+        if (service.tags.some((elem) => query.includes(elem))) {
+          searchResults.push(service);
+        }
+      }
+    });
+  }
+  if (searchResults.length) return searchResults;
+}
+
+document.getElementById("webArtSearch").addEventListener("click", function () {
+  let matchWebinars = searchWithinWebinars(searchInput.value);
+  let matchArticles = searchWithinArticles(searchInput.value);
+  let matchServices = searchWithinServices(searchInput.value);
+  console.log(matchWebinars);
+  console.log(matchArticles);
+  console.log(matchServices);
+  let matches = [];
+  if (matchWebinars) {
+    matchWebinars.forEach((webinar, index) => {
+      matches.push({
+        ...webinar,
+        type: "Webinar",
+      });
+    });
+  }
+  if (matchArticles) {
+    matchArticles.forEach((article, index) => {
+      matches.push({
+        ...article,
+        type: "Article",
+      });
+    });
+  }
+  if (matchServices) {
+    matchServices.forEach((service, index) => {
+      matches.push({
+        ...service,
+        type: "Service",
+      });
+    });
+  }
+  if (matches.length) {
+    console.log("Matches", matches);
+    sessionStorage.setItem("searchMatches", JSON.stringify(matches));
+    window.open("/searchResults.html", { target: "_blank" });
+  }
+});
+
 // Define clear search function
 function clearSearch() {
   // Reset search input and remove highlights
@@ -112,3 +266,7 @@ searchInput.addEventListener("input", function (event) {
     clearSearch();
   }
 });
+
+fetchWebinars();
+fetchArticles();
+fetchServices();

@@ -36,7 +36,6 @@ function fetchAnotherDOM() {
     .catch((err) => console.error(err));
 }
 
-// Define search function
 function searchingAnotherDOM(DOM) {
   const searchTerm = searchInput.value;
   const highlights = DOM.querySelectorAll(".highlight");
@@ -55,6 +54,7 @@ function searchingAnotherDOM(DOM) {
           regex,
           '<span class="highlight">$&</span>'
         );
+        console.log(DOM);
       }
     });
   }
