@@ -14,6 +14,7 @@
   flex-direction: column;
   gap: 25px;
   width: 50%;
+  min-width: 600px;
 }
 .__listItems {
   width: 100%;
